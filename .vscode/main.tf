@@ -1,17 +1,7 @@
-terraform{
- required_providers {
-   aws = {
-    source = "hashicorp/aws"
-    version = "~> 4.16"
-   }
- }
- required_version = ">=1.2.0"
-}
-
 provider "aws" {
-    region = "us-west-2"
-    access_key = ""
-    secret_key=""
+  region     = "us-east-1"  # Specify your desired AWS region
+  access_key = var.aws_access_key_id
+  secret_key = var.aws_secret_access_key
 }
 
 resource "aws_instance" "example" {
@@ -20,7 +10,9 @@ resource "aws_instance" "example" {
   key_name               = "JonO"
   vpc_security_group_ids = ["sg-0f47fb468827323df"]
   tags = {
-    Name = "html project"
+    Name = "react project"
+
+
   }
   
   provisioner "remote-exec" {
@@ -37,6 +29,8 @@ resource "aws_instance" "example" {
       # Access your helloWorld.html at http://<server-ip>:8000/helloWorld.html
 
       # Note: Ensure you have helloWorld.html in the repository.
+      # Additional commands to start your application
+
     ]
     
     connection {
